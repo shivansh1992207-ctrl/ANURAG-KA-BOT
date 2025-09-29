@@ -21,11 +21,10 @@ module.exports.onStart = async ({ api, event, args, usersData }) => {
     const link = `${await baseApiUrl()}/baby`;
     const dipto = args.join(" ").toLowerCase();
     const uid = event.senderID;
-    let command, comd, final;
 
     try {
         if (!args[0]) {
-            const ran = ["Bolo baby", "hum", "type help baby", "type !baby hi"];
+            const ran = ["Bolo baby 💖", "Hmm bolo jaanu 😏", "Type help baby 👑", "Type !baby hi 😉"];
             return api.sendMessage(ran[Math.floor(Math.random() * ran.length)], event.threadID, event.messageID);
         }
 
@@ -149,7 +148,31 @@ module.exports.onChat = async ({ api, event, message }) => {
         const body = event.body ? event.body.toLowerCase() : "";
         if (body.startsWith("baby") || body.startsWith("bby") || body.startsWith("bot") || body.startsWith("jan") || body.startsWith("babu") || body.startsWith("janu")) {
             const arr = body.replace(/^\S+\s*/, "");
-            const randomReplies = ["Bol 🐸", "Bol suntechi 🐍", "Dakis ken 😾?", "Bolo jaan ki korte pari tomar jonno 😞"];
+            
+            // 🔥 Mast mast replies (romantic + funny + attitude + naughty)
+            const randomReplies = [
+                "क्या हुआ जानू, मुझे याद किया? ❤️",
+                "बोलो मेरे राजा 👑",
+                "अरे वाह! किसने पुकारा मुझे 😏",
+                "हाँ बेबी, बोलो न जल्दी 🥺",
+                "क्यों तंग करते हो मुझे बार बार 😜",
+                "हाय मेरे जान, दिल खुश कर दिया 💖",
+                "अरे पगली, इतना प्यार मत कर मुझसे 🤭",
+                "क्या हाल है मेरे शहज़ादे 👑",
+                "तेरे बिना सब सूना लगता है 😢",
+                "इतना प्यारा बुलाया, अब इनाम चाहिए 🥰",
+                "बोल मेरे नटखट बाबू 😜",
+                "तू ही तो मेरी दुनिया है 🥹",
+                "दिल चाहता है बस तुझे देखते रहूँ 😍",
+                "तेरे बिना दिल नहीं लगता 😔",
+                "ओ बेबी, इतना cute क्यों हो तुम 😍",
+                "बोलो मेरे सोना 🥰",
+                "इतनी मिठास कहाँ से लाते हो 😋",
+                "कसम से, तू बहुत प्यारा है ❤️",
+                "तेरी आवाज़ में जादू है ✨",
+                "तू ही मेरी खुशियों की वजह है 💕"
+            ];
+
             if (!arr) {
                 await api.sendMessage(randomReplies[Math.floor(Math.random() * randomReplies.length)], event.threadID, (error, info) => {
                     if (!info) message.reply("info obj not found");
@@ -162,6 +185,7 @@ module.exports.onChat = async ({ api, event, message }) => {
                 }, event.messageID);
                 return;
             }
+
             const a = (await axios.get(`${await baseApiUrl()}/baby?text=${encodeURIComponent(arr)}&senderID=${event.senderID}`)).data.reply;
             await api.sendMessage(a, event.threadID, (error, info) => {
                 global.GoatBot.onReply.set(info.messageID, {
